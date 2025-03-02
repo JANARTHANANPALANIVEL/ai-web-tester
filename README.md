@@ -2,7 +2,7 @@
 
 An AI-powered web testing platform that performs automated functional, performance, and security audits using Google Gemini, Selenium, Lighthouse, and OWASP ZAP.
 
-![Demo Screenshot](https://via.placeholder.com/800x400.png?text=AI+Web+Auditor+Demo) *Add actual screenshot later*
+
 
 ## Features ✨
 
