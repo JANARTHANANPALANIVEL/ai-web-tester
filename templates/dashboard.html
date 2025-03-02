@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Audit Results - {{ url }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Audit Results for {{ url }}</h1>
+        
+        {% if results.status == 'running' %}
+            <div class="status running">
+                Audit in progress...
+                <div class="loader"></div>
+            </div>
+        {% elif results.status == 'completed' %}
+            <div class="results-section">
+                <h2>Functional Tests</h2>
+                <pre>{{ results.results.functional }}</pre>
+            </div>
+
+            <div class="results-section">
+                <h2>Performance Metrics</h2>
+                <pre>{{ results.results.performance | tojson(indent=2) }}</pre>
+            </div>
+
+            <div class="results-section">
+                <h2>Security Findings</h2>
+                <pre>{{ results.results.security | tojson(indent=2) }}</pre>
+            </div>
+        {% else %}
+            <div class="status error">Error: {{ results.message }}</div>
+        {% endif %}
+    </div>
+    <script>
+        // Auto-refresh every 5 seconds if audit is running
+        {% if results.status == 'running' %}
+            setTimeout(() => location.reload(), 5000);
+        {% endif %}
+    </script>
+</body>
+</html>
