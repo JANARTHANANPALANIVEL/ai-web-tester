@@ -99,6 +99,5 @@ cat reports/zap_report.json  # Security findings
 ```
 
 ## 📜 License
-
-
+MIT License - See LICENSE
 ---
