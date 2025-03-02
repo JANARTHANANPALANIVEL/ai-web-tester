@@ -44,6 +44,15 @@ python app.py
 # Example API call:
 curl -X POST -d "url=https://example.com" http://localhost:5000/start-audit
 ```
+### Usage
+```bash
+# Run application
+python app.py
+
+# Access UI at http://localhost:5000
+# Example API call:
+curl -X POST -d "url=https://example.com" http://localhost:5000/start-audit
+```
 
 ## 📊 Features
 | Component          | Technology Stack      |
