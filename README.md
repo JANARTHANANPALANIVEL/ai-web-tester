@@ -1,46 +1,89 @@
+Here's a concise, single-file README.md for your project:
+
+```markdown
 # AI Web Auditor 🤖
 
-An AI-powered web testing platform that performs automated functional, performance, and security audits using Google Gemini, Selenium, Lighthouse, and OWASP ZAP.
+![Python](https://img.shields.io/badge/Python-3.9%2B-blue)
+![Flask](https://img.shields.io/badge/Flask-2.0%2B-lightgrey)
+![Selenium](https://img.shields.io/badge/Selenium-4.0%2B-orange)
 
+Automated website testing platform combining AI-powered test generation (Google Gemini), functional testing (Selenium), performance analysis (Lighthouse), and security scanning (OWASP ZAP).
 
+## 🚀 Quick Start
 
-## Features ✨
-
-- **AI-Powered Testing**: Generate test cases using Google Gemini
-- **Self-Healing Tests**: Automatic locator repair with Healenium
-- **Performance Metrics**: Lighthouse integration for core web vitals
-- **Security Scanning**: OWASP ZAP vulnerability detection
-- **Real-Time Dashboard**: Live progress tracking and results display
-- **Multi-Tool Reports**: Allure, Lighthouse, and ZAP reporting
-
-## Prerequisites 📋
-
+### Prerequisites
 - Python 3.9+
 - Node.js 16+
 - Docker
 - Google Chrome
-- ChromeDriver
-- [Google Gemini API Key](https://aistudio.google.com/app/apikey)
+- [Gemini API Key](https://aistudio.google.com/app/apikey)
 
-## Installation 🛠️
-
+### Installation
 ```bash
-# Clone repository
-git clone https://github.com/yourusername/ai-web-auditor.git
+# Clone & setup
+git clone https://github.com/JANARTHANANPALANIVEL/ai-web-auditor.git
 cd ai-web-auditor
-
-# Create virtual environment
-python -m venv venv
-
-# Activate environment
-# Windows: venv\Scripts\activate
-# Mac/Linux: source venv/bin/activate
-
-# Install Python dependencies
+python -m venv venv && source venv/bin/activate  # Windows: venv\Scripts\activate
 pip install -r requirements.txt
-
-# Install Lighthouse
 npm install -g lighthouse
-
-# Pull OWASP ZAP Docker image
 docker pull owasp/zap2docker-stable
+
+# Start ZAP proxy
+docker run -d -p 8080:8080 -i owasp/zap2docker-stable zap.sh -daemon -host 0.0.0.0 -port 8080 -config api.disablekey=true
+
+# Configure environment
+echo "GEMINI_API_KEY=your_key_here" > .env
+echo "SELENIUM_DRIVER_PATH=$(which chromedriver)" >> .env
+```
+
+### Usage
+```bash
+# Run application
+python app.py
+
+# Access UI at http://localhost:5000
+# Example API call:
+curl -X POST -d "url=https://example.com" http://localhost:5000/start-audit
+```
+
+## 📊 Features
+| Component          | Technology Stack      |
+|--------------------|-----------------------|
+| AI Test Generation | Google Gemini         |
+| Functional Testing | Selenium + Healenium  |
+| Performance Audit  | Lighthouse            |
+| Security Scanning  | OWASP ZAP             |
+| Reporting          | Allure + JSON exports |
+
+
+
+## 📍Troubleshooting
+**1. ChromeDriver Issues**
+```bash
+export PATH=$PATH:/path/to/chromedriver
+chromedriver --version  # Verify installation
+```
+
+**2. ZAP Connection Problems**
+```bash
+docker ps  # Check running containers
+curl http://localhost:8080/JSON/core/view/version/
+```
+
+**3. Gemini API Errors**
+```bash
+python -c "import google.generativeai as genai; genai.configure(api_key='YOUR_KEY'); print(genai.list_models())"
+```
+
+## 📂 Generated Reports
+```bash
+# View reports
+allure serve reports/  # Functional tests
+cat reports/lighthouse_report.json  # Performance metrics
+cat reports/zap_report.json  # Security findings
+```
+
+## 📜 License
+MIT License - See [LICENSE](LICENSE)
+
+---
